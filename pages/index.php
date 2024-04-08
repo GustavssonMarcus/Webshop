@@ -8,7 +8,7 @@ layout_header("Stefans Bank");
 ?>
 <!------------------sidenav-------------->
 <?php
-layout_sidenav($dbContext);
+layout_Navbar($dbContext);
 ?>
 <Main>
     <Section class="main">
@@ -20,11 +20,7 @@ layout_sidenav($dbContext);
         <div class="products">
             <?php
             foreach ($dbContext->getAllProducts() as $product) {
-                if ($product->price > 20) {
-                    echo "<div class='products-info'> <p>Klubba: $product->brand $product->brandname</p>  <p>Färg: $product->color</p><p> Pris: $product->price kr</p>  <p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
-                } else {
-
-                }
+                echo "<div class='products-info'> <p>Klubba: $product->brand $product->brandname</p>  <p>Färg: $product->color</p><p> Pris: $product->price kr</p>  <p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
             }
             ?>
         </div>

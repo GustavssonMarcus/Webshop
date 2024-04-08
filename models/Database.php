@@ -1,5 +1,5 @@
 <?php
-
+require_once ("models/Category.php");
 require_once ("models/Product.php");
 class DBContext
 {
@@ -16,6 +16,31 @@ class DBContext
         $dsn = "mysql:host=$this->host;dbname=$this->db";
         $this->pdo = new PDO($dsn, $this->user, $this->pass);
     }
+    function getAllCategories()
+    {
+        return $this->pdo->query('SELECT * FROM category')->fetchAll(PDO::FETCH_CLASS, 'Category');
+
+    }
+    function getSelectedProduct($id)
+    {
+        $prep = $this->pdo->prepare('SELECT * FROM products where categoryId=:id');
+        $prep->setFetchMode(PDO::FETCH_CLASS, 'Product');
+        $prep->execute(['id' => $id]);
+        return $prep->fetch();
+    }
+    function getProductsByCategoryId($categoryId)
+    {
+        $prep = $this->pdo->prepare('SELECT * FROM products WHERE categoryId = :categoryId');
+        $prep->execute(['categoryId' => $categoryId]);
+        return $prep->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getCategoryById($id)
+    {
+        $prep = $this->pdo->prepare('SELECT * FROM category WHERE id = :id');
+        $prep->execute(['id' => $id]);
+        return $prep->fetch(PDO::FETCH_ASSOC);
+    }
 
 
     function getAllProducts()
@@ -23,12 +48,6 @@ class DBContext
         return $this->pdo->query('SELECT * FROM products')->fetchAll(PDO::FETCH_CLASS, 'Product');
     }
 }
-// function getProduct($id)
-// {
-//     $prep = $this->pdo->prepare('SELECT * FROM products where id=:id');
-//     $prep->setFetchMode(PDO::FETCH_CLASS, 'Product');
-//     $prep->execute(['id' => $id]);
-//     return $prep->fetch();
-// }
+
 
 ?>

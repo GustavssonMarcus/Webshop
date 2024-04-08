@@ -1,15 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+require_once ("Models/Database.php");
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+require_once ("Pages/layout/Header.php");
+require_once ("Pages/layout/Navbar.php");
 
-<body>
-    <p>Hej</p>
 
-</body>
+$id = $_GET['id'] ?? "";
 
-</html>
+
+$dbContext = new DBContext();
+
+
+$customer = $dbContext->getSelectedProduct($id);
+
+
+?>
+<?php
+layout_header("Marcus");
+?>
+<?php
+layout_Navbar($dbContext);
+?>
+
+<Main>
+    <Section class="main">
+        <div class="main-content">
+            <h1>Innebandy Produkter</h1>
+        </div>
+    </Section>
+    <div>
+        <h2>
+            <?php echo $customer->brand; ?>
+            <br>
+            <?php echo $customer->brandname; ?>
+            <br>
+            <?php echo $customer->price; ?> kr
+        </h2>
+    </div>
+
+</Main>

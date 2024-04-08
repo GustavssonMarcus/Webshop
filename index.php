@@ -13,6 +13,9 @@ $router->addRoute('/', function () {
 $router->addRoute('/product', function () {
     require __DIR__ . '/pages/product.php';
 });
+$router->addRoute('/productpage', function () {
+    require __DIR__ . '/pages/productpage.php';
+});
 
 
 

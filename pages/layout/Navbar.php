@@ -1,5 +1,9 @@
 <?php
-function layout_sidenav($dbContext)
+
+require_once ("Models/Database.php");
+
+$dbContext = new DBContext();
+function layout_Navbar($dbContext)
 {
     ?>
     <header>
@@ -8,24 +12,18 @@ function layout_sidenav($dbContext)
                 <h3>Innebandyshopen</h3>
                 <div>
                     <ul>
-                        <li class="dropdown">
-                            <a class="dropbtn">Kategorier</a>
-                            <div class="dropdown-content">
-                                <a href="#">Populära produkter</a>
-                                <a href="#">Salming</a>
-                                <a href="#">Unihoc</a>
-                                <a href="#">Fatpipe</a>
-                                <a href="#">Oxdog</a>
-                                <a href="#">Jolly</a>
-                                <a href="#">Exel</a>
-                                <a href="#">Zone</a>
-                            </div>
-                        </li>
+
+                        <?php
+                        foreach ($dbContext->getAllCategories() as $category) {
+                            echo "<li class='dropdown-list'><a href='/productpage?id=$category->id'>$category->category</a></li> ";
+                        }
+                        ?>
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-<?php
+    <?php
 }
 ?>
