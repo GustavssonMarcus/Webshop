@@ -6,10 +6,10 @@ require_once ("Models/Database.php");
 $id = $_GET['id'] ?? "";
 $dbContext = new DBContext();
 
-$category = $dbContext->getCategoryById($id); // Hämta kategorin baserat på den valda kategori-ID:n
-$products = $dbContext->getProductsByCategoryId($id); // Hämta alla produkter inom den valda kategorin
+$category = $dbContext->getCategoryById($id);
+$products = $dbContext->getProductsByCategoryId($id);
 
-layout_header("Stefans Bank");
+layout_header("Marcus Shop");
 ?>
 <!------------------sidenav-------------->
 <?php
@@ -21,12 +21,12 @@ layout_Navbar($dbContext);
             <h1>Innebandy Produkter</h1>
             <h2>
                 <?php echo $category['category']; ?>
-            </h2> <!-- Visa kategorinamnet -->
+            </h2>
             <ul>
                 <?php foreach ($products as $product): ?>
                     <li class='products-info'>
                         <?php echo $product['brandname']; ?>
-                    </li> <!-- Visa produktnamn -->
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>

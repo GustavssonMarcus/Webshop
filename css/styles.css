@@ -14,6 +14,11 @@ body {
     align-items: center;
     padding: 5px;
 }
+h3 a {
+    text-decoration: none;
+    color: white;
+    padding-right: 50px;
+}
 
 ul {
     list-style-type: none;
@@ -23,7 +28,7 @@ ul {
 }
   
 li {
-    float: left;
+    float: right;
 }
   
 li a, .dropbtn {
@@ -33,37 +38,13 @@ li a, .dropbtn {
     padding: 14px 16px;
     text-decoration: none;
 }
-  
+.dropdown-list {
+
+}  
 .dropdown-list:hover {
-    border-bottom: 1px solid black;
+    background-color: rgba(60, 60, 63, 0.692);
 }
-  
-li.dropdown {
-    display: inline-block;
-}
-  
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
-    z-index: 1;
-}
-  
-.dropdown-content li a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-  
-.dropdown-content a:hover {background-color: #f1f1f1;}
-  
-.dropdown:hover .dropdown-content {
-    display: block;
-}
+
 
 .main{
 
@@ -97,4 +78,14 @@ h1{
     border-radius: 10px;
     padding: 10px;
     text-align: center;
+}
+.products-info a {
+    text-decoration: none;
+    color: black;
+
+}
+.products-info a:hover {
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid black;
 }

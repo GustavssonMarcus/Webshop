@@ -20,7 +20,7 @@ layout_Navbar($dbContext);
         <div class="products">
             <?php
             foreach ($dbContext->getAllProducts() as $product) {
-                echo "<div class='products-info'> <p>Klubba: $product->brand $product->brandname</p>  <p>Färg: $product->color</p><p> Pris: $product->price kr</p>  <p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
+                echo "<div class='products-info'> <p>Produkt: $product->brand $product->brandname</p>  <p>Färg: $product->color</p><p> Pris: $product->price kr</p>  <p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
             }
             ?>
         </div>

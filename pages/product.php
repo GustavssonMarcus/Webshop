@@ -28,7 +28,7 @@ layout_Navbar($dbContext);
             <h1>Innebandy Produkter</h1>
         </div>
     </Section>
-    <div>
+    <section>
         <h2>
             <?php echo $customer->brand; ?>
             <br>
@@ -36,6 +36,7 @@ layout_Navbar($dbContext);
             <br>
             <?php echo $customer->price; ?> kr
         </h2>
-    </div>
+    </section>
+
 
 </Main>

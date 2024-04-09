@@ -9,9 +9,10 @@ function layout_Navbar($dbContext)
     <header>
         <nav class="navbar">
             <div class="navbar-menu">
-                <h3>Innebandyshopen</h3>
+                <h3><a href="/">Innebandyshopen</a></h3>
                 <div>
                     <ul>
+                        <li class="dropdown-list"><a href="/popularproducts">Populärt</a></li>
 
                         <?php
                         foreach ($dbContext->getAllCategories() as $category) {

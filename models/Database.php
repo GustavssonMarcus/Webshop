@@ -41,6 +41,11 @@ class DBContext
         $prep->execute(['id' => $id]);
         return $prep->fetch(PDO::FETCH_ASSOC);
     }
+    function getPopularProducts()
+    {
+        return $this->pdo->query('select * from products order by popularity desc limit 0,10')->fetchAll(PDO::FETCH_CLASS, 'Product');
+
+    }
 
 
     function getAllProducts()
