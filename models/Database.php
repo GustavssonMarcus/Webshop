@@ -52,6 +52,11 @@ class DBContext
     {
         return $this->pdo->query('SELECT * FROM products')->fetchAll(PDO::FETCH_CLASS, 'Product');
     }
+    function getAllProductsSorted($sort_column, $sort_order)
+    {
+        $sql = "SELECT * FROM products ORDER BY $sort_column $sort_order";
+        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Product');
+    }
 }
 
 
