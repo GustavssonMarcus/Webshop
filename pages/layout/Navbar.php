@@ -22,6 +22,11 @@ function layout_Navbar($dbContext)
 
                     </ul>
                 </div>
+                <form action="" method="get">
+                    <label for="search">Sök produkt:</label>
+                    <input type="text" name="search" id="search" placeholder="Skriv in sökord...">
+                    <input type="submit" value="Sök">
+                </form>
             </div>
         </nav>
     </header>

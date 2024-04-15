@@ -35,11 +35,17 @@ layout_Navbar($dbContext);
         </form>
         <div class="products">
             <?php
-
-            if (isset ($_GET['sort_column']) && isset ($_GET['sort_order'])) {
-                $products = $dbContext->getAllProductsSorted($sort_column, $sort_order);
+            if (isset ($_GET['search'])) {
+                $search_term = $_GET['search'];
+                // Hämta produkter från databasen som matchar söktermen
+                $products = $dbContext->searchProducts($search_term);
             } else {
-                $products = $dbContext->getAllProducts();
+                // Hantera användarens val för sorteringskolumn och ordning
+                $sort_column = isset ($_GET['sort_column']) ? $_GET['sort_column'] : 'brand'; // standard sortering efter märke
+                $sort_order = isset ($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC'; // standard ordning i stigande ordning
+            
+                // Hämta produkter från databasen med dynamisk sortering om sorteringsalternativ har valts, annars hämta alla produkter
+                $products = $dbContext->getAllProductsSorted($sort_column, $sort_order);
             }
 
             foreach ($products as $product) {

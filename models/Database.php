@@ -47,6 +47,14 @@ class DBContext
 
     }
 
+    function searchProducts($search_term)
+    {
+        $prep = $this->pdo->prepare('SELECT * FROM products WHERE brand LIKE :search_term OR brandname LIKE :search_term OR color LIKE :search_term');
+        $search_term = "%$search_term%";
+        $prep->execute(['search_term' => $search_term]);
+        return $prep->fetchAll(PDO::FETCH_CLASS, 'Product');
+    }
+
 
     function getAllProducts()
     {
