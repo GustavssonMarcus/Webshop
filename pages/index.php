@@ -4,8 +4,8 @@ require_once ("Pages/layout/Header.php");
 require_once ("models/Database.php");
 $dbContext = new DBContext();
 
-$sort_column = isset ($_GET['sort_column']) ? $_GET['sort_column'] : 'brand';
-$sort_order = isset ($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC';
+$sortOrder = $_GET['sortOrder'] ?? "";
+$sortCol = $_GET['sortCol'] ?? "";
 
 layout_header("Stefans Bank");
 ?>
@@ -20,31 +20,31 @@ layout_Navbar($dbContext);
         </div>
     </Section>
     <section>
-        <form action="" method="get">
+        <form action="" method="GET">
             <label for="sort_column">Sortera efter:</label>
             <select name="sort_column" id="sort_column">
-                <option value="brand">Märke</option>
+                <option value="brand">Namn</option>
                 <option value="price">Pris</option>
             </select>
-            <label for="sort_order">Ordning:</label>
+            <label for="sort_order">Sortera ordning:</label>
             <select name="sort_order" id="sort_order">
                 <option value="ASC">Stigande</option>
                 <option value="DESC">Fallande</option>
             </select>
+            <input type="hidden" name="search"
+                value="<?php echo isset($_GET['search']) ? urlencode($_GET['search']) : ''; ?>">
             <input type="submit" value="Sortera">
         </form>
         <div class="products">
             <?php
-            if (isset ($_GET['search'])) {
-                $search_term = $_GET['search'];
-                // Hämta produkter från databasen som matchar söktermen
-                $products = $dbContext->searchProducts($search_term);
+            if (isset($_GET['search'])) {
+                $search_term = urldecode($_GET['search']);
+                $sort_column = isset($_GET['sort_column']) ? $_GET['sort_column'] : 'brand';
+                $sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC';
+                $products = $dbContext->searchProducts($search_term, $sort_column, $sort_order);
             } else {
-                // Hantera användarens val för sorteringskolumn och ordning
-                $sort_column = isset ($_GET['sort_column']) ? $_GET['sort_column'] : 'brand'; // standard sortering efter märke
-                $sort_order = isset ($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC'; // standard ordning i stigande ordning
-            
-                // Hämta produkter från databasen med dynamisk sortering om sorteringsalternativ har valts, annars hämta alla produkter
+                $sort_column = isset($_GET['sort_column']) ? $_GET['sort_column'] : 'brand';
+                $sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC';
                 $products = $dbContext->getAllProductsSorted($sort_column, $sort_order);
             }
 
@@ -54,4 +54,5 @@ layout_Navbar($dbContext);
             ?>
         </div>
     </section>
+
 </Main>

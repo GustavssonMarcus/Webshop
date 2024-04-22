@@ -23,5 +23,6 @@ $router->addRoute('/popularproducts', function () {
 
 
 
+
 $router->dispatch();
 ?>

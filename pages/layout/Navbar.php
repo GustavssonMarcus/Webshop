@@ -22,9 +22,10 @@ function layout_Navbar($dbContext)
 
                     </ul>
                 </div>
-                <form action="" method="get">
+                <form action="" method="GET">
                     <label for="search">Sök produkt:</label>
-                    <input type="text" name="search" id="search" placeholder="Skriv in sökord...">
+                    <input type="text" name="search" id="search" placeholder="Skriv in sökord..."
+                        value="<?php echo isset($_GET['search']) ? urldecode($_GET['search']) : ''; ?>">
                     <input type="submit" value="Sök">
                 </form>
             </div>

@@ -38,9 +38,7 @@ li a, .dropbtn {
     padding: 14px 16px;
     text-decoration: none;
 }
-.dropdown-list {
 
-}  
 .dropdown-list:hover {
     background-color: rgba(60, 60, 63, 0.692);
 }
