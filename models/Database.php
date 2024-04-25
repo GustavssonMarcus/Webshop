@@ -85,7 +85,7 @@ class DBContext
         $prep = $this->pdo->prepare('SELECT * FROM Products WHERE ID = :categoryId');
         $prep->setFetchMode(PDO::FETCH_CLASS, 'Product');
         $prep->execute(['categoryId' => $categoryId]);
-        return $prep->fetchAll(); // Assuming there could be multiple products with the same category
+        return $prep->fetchAll(); 
     }
     function getProductsByCategoryId($categoryId)
     {
@@ -103,12 +103,18 @@ class DBContext
     function getPopularProducts()
     {
         return $this->pdo->query('select * from products order by popularity desc limit 0,10')->fetchAll(PDO::FETCH_CLASS, 'Product');
-
     }
 
-    function getAllProducts()
+    function getPopularProductsSorted($sortColumn, $sortOrder)
     {
-        return $this->pdo->query('SELECT * FROM products')->fetchAll(PDO::FETCH_CLASS, 'Product');
+        $sql = "SELECT * FROM (SELECT * FROM Products ORDER BY Popularity DESC LIMIT 10) AS popular_products";
+        if ($sortColumn == 'price') {
+            $sql .= " ORDER BY price $sortOrder";
+        } else {
+            $sql .= " ORDER BY $sortColumn $sortOrder";
+        }
+    
+        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Product');
     }
 
     function searchProducts($search_term, $sort_col, $sort_order)
@@ -142,7 +148,7 @@ class DBContext
 
         if ($searched) {
             return $this->searchProducts($searched, $sortCol, $sortOrder);
-        } else {
+        }else {
 
             $sql = "SELECT * FROM products ORDER BY $sortCol $sortOrder";
             return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Product');

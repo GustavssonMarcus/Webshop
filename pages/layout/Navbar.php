@@ -12,7 +12,7 @@ function layout_Navbar($dbContext)
                 <h3><a href="/">Innebandyshopen</a></h3>
                 <div>
                     <ul>
-                        <li class="dropdown-list"><a href="/popularproducts">Populärt</a></li>
+                        <li class="dropdown-list"><a href="/popularproducts" name="popular" >Populärt</a></li>
 
                         <?php
                         foreach ($dbContext->getAllCategories() as $category) {
