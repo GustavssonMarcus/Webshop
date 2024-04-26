@@ -10,17 +10,16 @@ function layout_Navbar($dbContext)
         <nav class="navbar">
             <div class="navbar-menu">
                 <h3><a href="/">Innebandyshopen</a></h3>
-                <div>
-                    <ul>
-                        <li class="dropdown-list"><a href="/popularproducts" name="popular" >Populärt</a></li>
-
+                <div class="dropdown">
+                    <button class="dropdown-btn">Välj kategori</button>
+                        <div class="dropdown-content">
+                            <a href="/popularproducts" name="popular">Populärt</a>
                         <?php
                         foreach ($dbContext->getAllCategories() as $category) {
                             echo "<li class='dropdown-list'><a href='/productpage?id=$category->id'>$category->category</a></li> ";
                         }
                         ?>
-
-                    </ul>
+                    </div>
                 </div>
                 <form action="" method="GET">
                     <label for="search">Sök produkt:</label>

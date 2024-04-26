@@ -26,11 +26,13 @@ layout_Navbar($dbContext);
                 <option value="brand">Namn</option>
                 <option value="price">Pris</option>
             </select>
+            <br>
             <label for="sort_order">Sortera ordning:</label>
             <select name="sort_order" id="sort_order">
-                <option value="ASC">Stigande</option>
-                <option value="DESC">Fallande</option>
+                <option value="ASC">ASC</option>
+                <option value="DESC">DESC</option>
             </select>
+            <br>
             <input type="hidden" name="search"
                 value="<?php echo isset($_GET['search']) ? urlencode($_GET['search']) : ''; ?>">
             <input type="submit" value="Sortera">
