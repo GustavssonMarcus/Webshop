@@ -43,14 +43,14 @@ layout_Navbar($dbContext);
             $sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC';
             $popular = $dbContext->getPopularProductsSorted($sortCol, $sortOrder);
             foreach ($popular as $product) {
-                echo "<div class='products-info'><p>Klubba: $product->brand $product->brandname</p><p> Pris: $product->price kr</p><p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
+                echo "<div class='products-info'><h3>Produkt: $product->brand $product->brandname</h3><p> Pris: $product->price kr</p><p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
             }
             
         } else {
 
             $products = $dbContext->getPopularProducts();
             foreach ($products as $product) {
-                echo "<div class='products-info'><p>Klubba: $product->brand $product->brandname</p><p> Pris: $product->price kr</p><p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
+                echo "<div class='products-info'><h3>Produkt: $product->brand $product->brandname</h3><p> Pris: $product->price kr</p><p><a href='/product?id=$product->id'>Läs mer</a></p></div>";
             }
         }
 

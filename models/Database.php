@@ -100,11 +100,25 @@ class DBContext
         $prep->execute(['id' => $id]);
         return $prep->fetch(PDO::FETCH_ASSOC);
     }
+    public function getSortedProductsByCategoryId($categoryId, $sortCol, $sortOrder) {
+        $products = $this->getProductsByCategoryId($categoryId);
+
+        usort($products, function($a, $b) use ($sortCol, $sortOrder) {
+            if ($sortCol == 'brand') {
+                $cmp = strcmp($a['brandname'], $b['brandname']);
+            } elseif ($sortCol == 'price') {
+                $cmp = $a['price'] - $b['price'];
+            } else {
+                $cmp = $a['product_id'] - $b['product_id'];
+            }
+            return ($sortOrder == 'ASC') ? $cmp : -$cmp;
+        });
+        return $products;
+    }
     function getPopularProducts()
     {
         return $this->pdo->query('select * from products order by popularity desc limit 0,10')->fetchAll(PDO::FETCH_CLASS, 'Product');
     }
-
     function getPopularProductsSorted($sortColumn, $sortOrder)
     {
         $sql = "SELECT * FROM (SELECT * FROM Products ORDER BY Popularity DESC LIMIT 10) AS popular_products";
@@ -113,10 +127,8 @@ class DBContext
         } else {
             $sql .= " ORDER BY $sortColumn $sortOrder";
         }
-    
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Product');
     }
-
     function searchProducts($search_term, $sort_col, $sort_order)
     {
         $valid_sort_columns = ['product_id', 'brand', 'brandname', 'color', 'price'];
@@ -139,25 +151,18 @@ class DBContext
 
         return $prep->fetchAll(PDO::FETCH_CLASS, 'Product');
     }
-
-
-
     function getAllProductsSorted($sortCol, $sortOrder)
     {
         $searched = isset($_GET['search']) ? $_GET['search'] : '';
-
         if ($searched) {
             return $this->searchProducts($searched, $sortCol, $sortOrder);
         }else {
-
             $sql = "SELECT * FROM products ORDER BY $sortCol $sortOrder";
             return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Product');
         }
     }
-
     function initIfNotInitialized()
     {
-
         static $initialized = false;
         if ($initialized)
             return;
@@ -183,6 +188,5 @@ class DBContext
                 )";
         $this->pdo->exec($sql);
     }
-
 }
 ?>
